@@ -1,0 +1,52 @@
+//选择排序  
+//时间复杂度O(n²) 最坏时间复杂度O(n²)  最好时间复杂度O(n²)
+//空间复杂度O(1)
+//数组不稳定，链表稳定
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+const int size=300;          //设置排序数组长度
+
+//生成数组对象
+void get_arr(int arr[])
+{
+	srand((int)time(0));
+	for(int i=0;i<size;i++)
+		arr[i]=rand()%100;      //生成0-100的随机数
+}
+
+//选择排序
+void SelectionSort(int arr[])  
+{
+	for(int i=0;i<size;i++)
+	{
+		int index=i;
+		for(int j=i+1;j<size;j++)
+		{
+			if(arr[j]<arr[index])
+				index=j;                //遍历i后面的所有元素，找到最小的那个
+		}
+		int temp=arr[index];arr[index]=arr[i];arr[i]=temp;    //最小的元素与i交换，使前i个元素顺序排列
+	}
+}
+
+//打印数组
+void PrintArr(int arr[])
+{
+	for(int i=0;i<size;i++)
+		cout<<arr[i]<<" ";
+}
+
+int main()
+{
+	int arr[size];     //初始化数组
+	get_arr(arr);      //调用函数生成数组对象值
+	cout<<"排序前数组："<<endl; PrintArr(arr);cout<<endl;
+
+	SelectionSort(arr);   //冒泡排序
+	cout<<"排序后数组："<<endl; PrintArr(arr);cout<<endl;
+	system("pause");
+	return 0;
+}
