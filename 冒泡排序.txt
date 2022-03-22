@@ -1,0 +1,47 @@
+//冒泡排序  
+//平均时间复杂度O(n²) 最坏时间复杂度O(n²)  最好时间复杂度O(n)(要设置判别是否已顺序排列)
+//空间复杂度O(1)
+//稳定
+
+#include <iostream>
+#include <iomanip>
+#include <time.h>
+using namespace std;
+
+const int size=300;          //设置排序数组长度
+
+//生成数组对象
+void get_arr(int arr[])
+{
+	srand((int)time(0));
+	for(int i=0;i<size;i++)
+		arr[i]=rand()%100;      //生成0-100的随机数
+}
+
+//冒泡排序
+void BubbleSort(int arr[])  
+{
+	for(int i=0;i<size;i++)
+		for(int j=0;j<size-1;j++)
+			if(arr[j]>arr[j+1])
+			{int temp=arr[j];arr[j]=arr[j+1];arr[j+1]=temp;}
+}
+
+//打印数组
+void PrintArr(int arr[])
+{
+	for(int i=0;i<size;i++)
+		cout<<arr[i]<<" ";
+}
+
+int main()
+{
+	int arr[size];     //初始化数组
+	get_arr(arr);      //调用函数生成数组对象值
+	cout<<"排序前数组："<<endl; PrintArr(arr);cout<<endl;
+
+	BubbleSort(arr);   //冒泡排序
+	cout<<"排序后数组："<<endl; PrintArr(arr);cout<<endl;
+	system("pause");
+	return 0;
+}
