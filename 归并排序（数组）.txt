@@ -1,0 +1,67 @@
+//归并排序  
+//平均时间复杂度O(nlogn) 最坏时间复杂度O(nlogn)  最好时间复杂度O(nlogn)
+//空间复杂度O(n)
+//稳定
+
+#include <iostream>
+#include <time.h>
+using namespace std;
+
+const int size=300;          //设置排序数组长度
+
+//生成数组对象
+void get_arr(int arr[])
+{
+	srand((int)time(0));
+	for(int i=0;i<size;i++)
+		arr[i]=rand()%100;      //生成0-100的随机数
+}
+
+template<typename T>
+void MergeSort(T arr[],int start,int mid,int end){
+	int left[size],right[size];        
+	for(int i=start;i<=mid;i++)        
+		left[i-start]=arr[i];           //把arr[start,mid+1]的内容复制到left数组中
+	left[mid-start+1]=1000;             //设置哨兵，防止左右数组中有一个先行排完时发生越界比较
+	for(int i=mid+1;i<=end;i++)
+		right[i-mid-1]=arr[i];
+	right[end-mid]=1000;
+
+	int left_index=0,right_index=0;
+	for(int i=start;i<=end;i++)                  //左右数组排头比较后顺序放入arr数组
+		if(left[left_index]<right[right_index])
+		    {arr[i]=left[left_index];left_index++;}
+		else
+			{arr[i]=right[right_index];right_index++;}
+}
+
+//归并排序
+template<typename T>
+void MergePart(T arr[],int start,int end)  
+{
+	int mid=(start+end)/2;
+	if(start>=end)
+		return;
+	MergePart(arr,start,mid);
+	MergePart(arr,mid+1,end);
+	MergeSort(arr,start,mid,end);
+}
+
+//打印数组
+void PrintArr(int arr[])
+{
+	for(int i=0;i<size;i++)
+		cout<<arr[i]<<" ";
+}
+
+int main()
+{
+	int arr[size];     //初始化数组
+	get_arr(arr);      //调用函数生成数组对象值
+	cout<<"排序前数组："<<endl; PrintArr(arr);cout<<endl;
+
+	MergePart(arr,0,size-1);   //冒泡排序
+	cout<<"排序后数组："<<endl; PrintArr(arr);cout<<endl;
+	system("pause");
+	return 0;
+}
